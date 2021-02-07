@@ -1,8 +1,9 @@
 <template>
-  <v-container>
+  <v-container >
     <v-row>
       <v-form @click="submitHandler" v-model="valid" lazy-validation>
-        <v-col>
+      <h1>Meet Up Form</h1>
+        <v-col >
           <v-text-field
             v-model="formData.title"
             :counter="50"
@@ -49,26 +50,14 @@
           >
             Submit
           </v-btn>
-
-          <v-btn color="error" class="mr-4" @click="reset"> Reset Form </v-btn>
-
-          <v-btn color="warning" @click="resetValidation">
-            Reset Validation
-          </v-btn>
         </v-col>
       </v-form>
     </v-row>
-    <span>
-      {{ formData.title }}
-      {{ formData.description }}
-      {{ formData.timeHours }}
-      {{ formData.date }}
-    </span>
   </v-container>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
 // import { uuid } from "vue-uuid";
 
 export default {
@@ -88,19 +77,16 @@ export default {
       imageUrl: [],
     },
   }),
-
+  computed: {
+    ...mapState(["user"]),
+  },
   methods: {
     ...mapActions(["createMeetUp"]),
     submitHandler() {
       const { title, description, date, timeHours, imageUrl } = this.formData;
-      this.createMeetUp({ title, description, date, timeHours, imageUrl });
-      this.$router.push("/view");
-    },
-    reset() {
-      this.$refs.form.reset();
-    },
-    resetValidation() {
-      this.$refs.form.resetValidation();
+      const id = this.user.id;
+      this.createMeetUp({ title, description, date, timeHours, imageUrl, id });
+      this.$router.push("/view-meetup");
     },
     getImageUrl() {
       if (this.formData.imageUrl) {
@@ -110,5 +96,18 @@ export default {
       }
     },
   },
+  created() {
+    this.user.meetUpList = [];
+    console.log(this.user.meetUpList);
+    if (!this.user.id) {
+      this.$router.push("/sign-in");
+    }
+  },
 };
 </script>
+
+<style scoped>
+  .row{
+    justify-content: center;
+  }
+</style>

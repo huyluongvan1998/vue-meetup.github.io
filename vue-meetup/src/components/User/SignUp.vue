@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
 
 export default {
   data: () => ({
@@ -82,6 +82,14 @@ export default {
         this.formData.password === this.formData.rePassword ||
         "Password Must Match"
       );
+    },
+    ...mapState(["user"]),
+  },
+  watch: {
+    user: {
+      handler() {
+        this.$router.push("/");
+      },
     },
   },
 };

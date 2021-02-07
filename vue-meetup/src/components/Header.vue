@@ -6,12 +6,24 @@
     >
       <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
-      <v-toolbar-title> Meetup App</v-toolbar-title>
+      <router-link class="text-decoration-none"
+        to="/"
+      >
+        <v-toolbar-title>
+          <span class="title-meetup">
+            Meetup App
+          </span> 
+        </v-toolbar-title>
+      </router-link>
 
       <v-spacer></v-spacer>
 
       <div v-for="(m, idx) in menu" :key="idx" class="mx-2">
-        <router-link :to="m.path" class="text-decoration-none">
+        <router-link
+          :to="m.path"
+          class="text-decoration-none"
+          v-if="m.isSignIn === user.isSignIn || m.isShow"
+        >
           <v-btn>
             <i :class="m.icon" aria-hidden="true">
               <span> {{ "  " }} {{ m.content }} </span>
@@ -29,7 +41,14 @@ import { mapState } from "vuex";
 export default {
   name: "Header",
   computed: {
-    ...mapState(["menu"]),
+    ...mapState(["menu", "user"]),
   },
 };
 </script>
+
+<style>
+  .title-meetup{
+    color: rgba(241, 246, 250);
+    font-weight: bold;
+  }
+</style>

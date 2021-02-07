@@ -5,9 +5,11 @@ import Template from "../components/Template.vue";
 //User
 import SignUp from "../components/User/SignUp.vue";
 import SignIn from "../components/User/SignIn.vue";
+import SignOut from "../components/User/SignOut.vue";
 //MeetUp
 import CreateMeetUp from "../components/Meetups/CreateMeetUp.vue";
 import ViewMeetUps from "../components/Meetups/ViewMeetUps.vue";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -32,6 +34,11 @@ const routes = [
     path: "/sign-in",
     name: "SignIn",
     component: SignIn,
+  },
+  {
+    path: "/sign-out",
+    name: "SignOut",
+    component: SignOut,
   },
   //MeetUp Session
   {

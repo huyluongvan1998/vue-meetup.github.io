@@ -1,9 +1,10 @@
 <template>
   <v-container>
-    <v-form ref="form" v-model="valid" lazy-validation>
+    <Alert :type="'error'" :msg="error.msg" />
+    <v-form ref="form" v-model="valid" lazy-validation v-on:keyup:enter="onSubmitHandler">
       <v-text-field
         v-model="formData.email"
-        :counter="10"
+        :counter="50"
         :rules="emailRules"
         label="E-mail"
         required
@@ -23,9 +24,17 @@
     </v-form>
   </v-container>
 </template>
+
 <script>
+import { mapActions, mapState } from "vuex";
+import Alert from "../Alert/Alert";
+
 export default {
+  components: {
+    Alert,
+  },
   data: () => ({
+    invalid: false,
     valid: true,
     name: "",
     email: "",
@@ -39,9 +48,22 @@ export default {
       password: "",
     },
   }),
-
+  computed: {
+    ...mapState(["user", "error"]),
+  },
   methods: {
-    onSubmitHandler() {},
+    ...mapActions(["signInUser"]),
+    onSubmitHandler() {
+      const { email, password } = this.formData;
+      this.signInUser({ email, password });
+    },
+  },
+  watch: {
+    user: {
+      handler() {
+        this.$router.push("/");
+      },
+    },
   },
 };
 </script>

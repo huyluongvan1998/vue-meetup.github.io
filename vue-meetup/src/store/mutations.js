@@ -1,12 +1,21 @@
 export default {
-  setUser(state) {
-    console.log(state);
+  setUser(state, payload) {
+    state.user = {
+      id: payload.id,
+      email: payload.email,
+      meetUpList: [],
+      isSignIn: payload.isSignIn,
+    };
   },
   setMeetUps(state, payload) {
-    return payload.map((el) => state.meetUpData.push(el));
+    return payload.map((el) => state.user.meetUpList.push(el));
   },
-  setMeetUp(state, payload) {
-    console.log(payload);
-    return state.meetUpData.push(payload);
+  setError(state, payload) {
+    return (state.error = {
+      msg: payload.msg,
+      code: payload.code,
+      isDisplay: true,
+      type: payload.type,
+    });
   },
 };

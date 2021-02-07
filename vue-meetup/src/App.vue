@@ -9,7 +9,7 @@
 
 <script>
 import Header from "./components/Header.vue";
-import { mapActions } from "vuex";
+// import { mapActions, mapState } from "vuex";
 export default {
   name: "App",
 
@@ -18,12 +18,6 @@ export default {
   },
 
   data: () => ({}),
-  methods: {
-    ...mapActions(["loadMeetUps"]),
-  },
-  mounted() {
-    this.meetUps = this.loadMeetUps();
-  },
 };
 </script>
 

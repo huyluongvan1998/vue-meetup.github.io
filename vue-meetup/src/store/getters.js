@@ -1,5 +1,8 @@
 export default {
   getMeetUps(state) {
-    return state.meetUpData;
+    return state.user.meetUpList;
+  },
+  getUser(state) {
+    return state.user;
   },
 };
